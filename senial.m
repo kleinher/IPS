@@ -1,4 +1,4 @@
-
+function [n, x] = senial(numal)
 % AnSyS
 % A�o 2023
 % Pr�ctica con utilitario 1

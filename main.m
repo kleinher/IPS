@@ -1,3 +1,6 @@
+addpath('./sistema1');
+
+
 [n, x] = senial(1614);
 
 % Graficar la señal
@@ -30,8 +33,16 @@ title('Fase de la TFTD de la señal');
 
 t = -2:0.001:8;           % Define el vector del tiempo
 x = (t == 0);             % Crea una señal de impulso (delta de Kronecker)
-y = sistema(x);           % Evalúa la señal a través del sistema
+y = sistema1(x);           % Evalúa la señal a través del sistema
 plot(t, y);               % Grafica la salida del sistema
 xlabel('Tiempo [n]');
 ylabel('Salida y[n]');
 title('Respuesta al impulso del sistema');
+
+t = 0:1:100;           % Define el vector del tiempo
+[n, x] = senial(1614);
+y = sistema1(x);          % Evalúa la señal a través del sistema
+plot(n, y);               % Grafica la salida del sistema
+xlabel('Tiempo [n]');
+ylabel('Salida y[n]');
+title('Respuesta de Sistema 1 a senial');

@@ -4,4 +4,5 @@ function y = sistema3(x)
     for n = 2:length(x)
         y(n) = 1/4 * x(n) - 1/4 * x(n - 1) - 1/2 * y(n - 1);
     end
+    
 end

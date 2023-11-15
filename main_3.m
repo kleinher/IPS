@@ -2,7 +2,6 @@
 addpath('./sistema3');
 
 [n, x] = senial(1614);
-t = 0:1:100;  % Define el vector del tiempo
 
 %salida a senial
 figure;          
@@ -11,58 +10,61 @@ stem(n, y);               % Grafica la salida del sistema
 xlabel('Tiempo [n]');
 ylabel('Salida y[n]');
 title('Respuesta de Sistema 3 a senial');
-            
-
+print -f1 -dpng 'sistema3/respuestaSistema3aSenial.png'          
 
 % TFTD(sistema(senial))
-Y = fft(y);
+Y = TFTD(n,y);
 %Modulo
-Y_magnitud = fftshift(abs(Y));
+Y_magnitud = abs(Y);
 %Fase
-Y_fase = fftshift(angle(Y));
+Y_fase = rad2deg(angle(Y));
 
 figure;
-s = -0.5:0.01:0.5;
+s = -0.5:0.001:0.5;
 plot(s, Y_magnitud);
 xlabel('Frecuencia (Hz)');
-ylabel('Magnitud');
-title('Magnitud TFTD(S3(senial))');
+ylabel('Modulo');
+title('Modulo TFTD(S3(senial))');
+print -f2 -dpng 'sistema3/moduloTFTD-s3-senial.png'
 
 figure;
 plot(s, Y_fase);
 xlabel('S');
 title('Fase TFTD(S3(senial))');
-
-
+print -f3 -dpng 'sistema3/faseTFTD-s3-senial.png'
 
 % h
-x = zeros(size(t));
-x(t == 0) = 1;
+x = zeros(size(n));
+x(n == 0) = 1;
 
 % sistema(h)
+figure;
 h = sistema3(x);
-stem(t,h)
+stem(n,h)
 xlabel('Tiempo');
 ylabel('Salida y[n]');
 title('Respuesta al impulso del sistema');
-grid on;
+print -f4 -dpng 'sistema3/respuestaSistemaAImpulso.png'
 
 % TFTD(h)
-H = fft(h);
+H = TFTD(n,h);
 %Modulo
-H_magnitud = fftshift(abs(H));
+H_magnitud = abs(H);
 %Fase
-H_fase = fftshift(angle(H));
+H_fase = rad2deg(angle(H));
 
 figure;
-s = -0.5:0.01:0.5;
+s = -0.5:0.001:0.5;
 plot(s, H_magnitud);
 xlabel('Frecuencia (Hz)');
-ylabel('Magnitud');
-title('Magnitud TFTD(S3(h))');
+ylabel('Modulo');
+title('Modulo TFTD(S3(h))');
 xlim([-0.5 0.5]);
+print -f5 -dpng 'sistema3/moduloTFTD-s3-h.png'
+
 figure;
 plot(s, H_fase);
 xlabel('S');
 title('Fase TFTD(S3(h))');
 xlim([-0.5 0.5]);
+print -f6 -dpng 'sistema3/faseTFTD-s3-h.png'

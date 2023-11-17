@@ -1,15 +1,13 @@
-function y = filtro1(n,x)
-  h = zeros(1, n);
-  h(1) = 1;      
-  h(8820+1) = -0.4;   
-  
-  y = zeros(1, length(x) + length(h) - 1);
-  
-  % Realizar la convolución manual
-  for i = 1:length(x)
-      for j = 1:length(h)
-          y(i + j - 1) = y(i + j - 1) + x(i) * h(j);
-      end
-  end
-
-end
+function f = filtro1 (x, n, deltas, val)
+     f = zeros(1,length(x));
+     for k=1:n
+        if (k<=2*deltas(2)) %%desde 1 hasta 17640
+            f(k)=x(k);
+            elseif ( (k > (2*deltas(2))) && (k <= (2*deltas(3))) ) %%desde 17641 hasta 35280
+                 f(k)= x(k) - ( (1/4)*( x(k-2*deltas(2)) ));
+                 else %%desde 35281
+                     f(k)= x(k) - (1/4)*x(k-2*deltas(2)) - (1/8)* x(k-2*deltas(3));
+        endif;
+        k=k+1;
+    endfor;
+endfunction

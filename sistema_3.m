@@ -1,6 +1,6 @@
 %Sistema 3
 addpath('./sistema3');
-
+addpath('./senial');
 [n, x] = senial(1614);
 
 %salida a senial
@@ -41,9 +41,9 @@ x(n == 0) = 1;
 figure;
 h = sistema3(x);
 stem(n,h)
-xlabel('Tiempo');
+xlabel('n');
 ylabel('Salida y[n]');
-title('Respuesta al impulso del sistema');
+title('Respuesta al impulso del sistema 3');
 print -f4 -dpng 'sistema3/respuestaSistemaAImpulso.png'
 
 % TFTD(h)
@@ -56,7 +56,7 @@ H_fase = rad2deg(angle(H));
 figure;
 s = -0.5:0.001:0.5;
 plot(s, H_magnitud);
-xlabel('Frecuencia (Hz)');
+xlabel('S');
 ylabel('Modulo');
 title('Modulo TFTD(S3(h))');
 xlim([-0.5 0.5]);

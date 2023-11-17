@@ -24,7 +24,9 @@ plot(s, X_magnitud);
 xlabel('Frecuencia (Hz)');
 ylabel('Modulo');
 title('Modulo de la TFTD de la señal');
+xlim([-0.5 0.5]);
 print -f2 -dpng 'senial/moduloTFTD.png';
+
 
 % Graficar la fase de la TFTD
 figure;
@@ -32,4 +34,6 @@ plot(s, X_fase);
 xlabel('Frecuencia (Hz)');
 ylabel('Fase (grados)');
 title('Fase de la TFTD de la señal');
+xlim([-0.5 0.5]);
 print -f3 -dpng 'senial/faseTFTD.png';
+

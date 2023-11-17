@@ -1,13 +1,11 @@
-function f = filtro1 (x, n, deltas, val)
-     f = zeros(1,length(x));
-     for k=1:n
-        if (k<=2*deltas(2)) %%desde 1 hasta 17640
-            f(k)=x(k);
-            elseif ( (k > (2*deltas(2))) && (k <= (2*deltas(3))) ) %%desde 17641 hasta 35280
-                 f(k)= x(k) - ( (1/4)*( x(k-2*deltas(2)) ));
-                 else %%desde 35281
-                     f(k)= x(k) - (1/4)*x(k-2*deltas(2)) - (1/8)* x(k-2*deltas(3));
-        endif;
-        k=k+1;
-    endfor;
+function y = filtro1(x)
+  k = 8820;
+  y = zeros(1, length(x)); % Inicializar y con la misma longitud que x
+  for n = 1:length(x)
+    if (n - k) <= 0
+      y(n) = x(n); % Para índices menores que k, simplemente copia x a y
+    else
+      y(n) = x(n) - 0.4 * x(n - k); % Aplica la fórmula para índices mayores o iguales a k
+    end
+  end
 endfunction

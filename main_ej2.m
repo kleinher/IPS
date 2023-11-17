@@ -30,64 +30,67 @@ title('Gráfica de la Señal');
 xlim([0 26460]);
 print -f2 -dpng 'ejercicio2/respuestaImpulsional.png' 
 
-
-% Grafico del filtro
-figure;
-y = filtro1(n,h);
-n_conv = 0:(length(h) + length(n) - 2);
-stem(n_conv, y);
-xlabel('n (Instantes)');
-ylabel('x (Señal)');
-title('Gráfica de filtro 1');
-print -f3 -dpng 'ejercicio2/respuestaFiltro1.png' 
-
-delta = zeros(1,length(n));
+delta = zeros(1,length(audio));
 delta(1) = 1; % Suponiendo que el primer valor es n=0
 
 y = eco(delta);
 
 % Graficar la salida del sistema a una delta
 figure;
-n_conv = 0:(length(n) + length(n) - 2);
-stem(n_conv, y);
+stem(y);
 xlabel('n (Instantes)');
 ylabel('x (Señal)');
-title('Respuesta del sistema a un impulso unitario');
-print -f4 -dpng 'ejercicio2/SalidaSistemaImpulsoUnitario.png' 
+title('eco(h)');
+print -f3 -dpng 'ejercicio2/h-eco.png'
 
-% Graficar la salida del sistema a la entrada de audio
+% Filtro 1 h
 figure;
-  canal_izquierdo = audio(:, 1);  % Extrae el canal izquierdo
-  canal_derecho = audio(:, 2);    % Extrae el canal derecho
-  eco_izquierdo = eco(canal_izquierdo);
-  eco_derecho = eco(canal_derecho);
-  audio_estereo_con_eco = [eco_izquierdo, eco_derecho];
-  
-  sound(eco_izquierdo, Fs);
-  plot(eco_izquierdo);
-  xlabel('n (Instantes)');
-  ylabel('x (Señal)');
-  title('Respuesta del sistema a un impulso unitario');
-  print -f5 -dpng 'ejercicio2/SalidaSistemaAEntradaAudio.png'
+y=filtro1(y);
+stem( y);
+xlabel('n (Instantes)');
+ylabel('x (Señal)');
+title('filtro 1 eco(h)');
+print -f4 -dpng 'ejercicio2/h-filtro1.png'
 
-  % Graficar la salida del sistema a la entrada de audio
+% Filtro 2 h
 figure;
-  y=filtro1(eco_izquierdo,eco_izquierdo);
-  
-  sound(eco_izquierdo, Fs);
-  plot(y);
-  xlabel('n (Instantes)');
-  ylabel('x (Señal)');
-  title('Salida eco al filtro 1');
-  print -f5 -dpng 'ejercicio2/SalidaSistemaAEntradaAudio.png'
+y=filtro2(y);
+stem(y);
+xlabel('n (Instantes)');
+ylabel('x (Señal)');
+title('filtro 2 eco(h)');
+print -f5 -dpng 'ejercicio2/h-filtro2.png'
 
-   % Graficar la salida del sistema a la entrada de audio
+
+audio = audio(:, 1);  % Extrae el canal izquierdo
+
+% Audio eco
 figure;
-  y=filtro2(y,y);
-  
-  sound(eco_izquierdo, Fs);
-  plot(y);
-  xlabel('n (Instantes)');
-  ylabel('x (Señal)');
-  title('Salida eco al filtro 2');
-  print -f5 -dpng 'ejercicio2/SalidaSistemaAEntradaAudio.png'
+audio=eco(audio);
+plot(audio);
+xlabel('n (Instantes)');
+ylabel('x (Señal)');
+title('Audio eco');
+print -f6 -dpng 'ejercicio2/audio-eco.png'
+
+% Filtro 2 audio
+figure;
+y=filtro1(audio);
+plot(y);
+xlabel('n (Instantes)');
+ylabel('x (Señal)');
+title('Audio filtro 1');
+print -f7 -dpng 'ejercicio2/audio-f1.png'
+
+% Filtro 2 audio
+figure;
+y=filtro2(y);
+plot(y);
+xlabel('n (Instantes)');
+ylabel('x (Señal)');
+title('Audio filtro 2');
+print -f8 -dpng 'ejercicio2/audio-f2.png'
+
+
+
+
